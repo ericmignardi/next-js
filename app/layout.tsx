@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/Header";
-import Footer from "@/components/shared/Footer";
 
-// Next.js Font Component - self-hosting, zero layout shift, privacy, variable fonts, preloading, subset support
 const interSans = Inter({
   variable: "--font-inter-sans",
   subsets: ["latin"],
@@ -27,7 +25,6 @@ export default function RootLayout({
       >
         <Header />
         <main className="flex-1">{children}</main>
-        <Footer />
       </body>
     </html>
   );

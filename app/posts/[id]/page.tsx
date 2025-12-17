@@ -1,4 +1,5 @@
-import { prisma } from "@/lib/prisma";
+import { Post } from "@/generated/prisma/client";
+import { prisma } from "@/lib/database/prisma";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -8,7 +9,6 @@ type PageProps = {
 
 // export const dynamicParams = false; // return 404 for unknown ids (only pre-rendered pages work)
 
-// For dynamic routes, use generateMetadata function
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -24,18 +24,13 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const posts = await prisma.post.findMany();
 
-  return posts.map((post) => ({
+  return posts.map((post: Post) => ({
     id: post.id,
   }));
 }
 
 const DynamicPostsPage = async ({ params }: PageProps) => {
   const { id } = await params;
-
-  // Test error boundary - move before DB query so it actually runs
-  if (id === "test-error") {
-    throw new Error("This is a test error!");
-  }
 
   const post = await prisma.post.findUnique({
     where: { id },

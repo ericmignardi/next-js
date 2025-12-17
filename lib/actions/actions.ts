@@ -1,7 +1,7 @@
 "use server";
 
 import { Post } from "@/generated/prisma/client";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/database/prisma";
 import { revalidatePath } from "next/cache";
 
 const authorId = "cmj5uzv270004k8udw2o75cnw";
